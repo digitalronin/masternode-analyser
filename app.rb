@@ -2,13 +2,15 @@
 
 require 'bundler/setup'
 require 'sinatra/base'
+require 'json'
 
 class App < Sinatra::Base
   set :port, ENV.fetch('PORT')
   set :bind, '0.0.0.0'
 
   get '/' do
-    "<h1>Masternode Analyser</h1>"
+    @data = JSON.parse(File.read('mno.json'))
+    erb :index
   end
 
   run! if app_file == $0

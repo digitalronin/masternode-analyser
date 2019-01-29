@@ -1,0 +1,10 @@
+<table cellspacing="0">
+  <thead>
+
+  </thead>
+  <tbody>
+    <% coins.each do |coin| %>
+      <%= erb :_coin, locals: { coin: coin } %>
+    <% end %>
+  </tbody>
+</table>
