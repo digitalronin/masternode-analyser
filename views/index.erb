@@ -1,2 +1,11 @@
-<h1>Masternode Analyser</h1>
+<h1>Masternode Coins</h1>
+
+<p>
+  Filter data from <a href='https://masternodes.online'>masternodes.online</a>
+  to make it easier to assess masternode coins.
+</p>
+
 <%= erb :_table, locals: { coins: @data } %>
+<p class='footnote'>
+  Updated at: <%= @updated_at %>
+</p>
