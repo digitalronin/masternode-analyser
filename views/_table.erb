@@ -17,4 +17,26 @@
       <%= erb :_coin, locals: { coin: coin } %>
     <% end %>
   </tbody>
+  <tfoot>
+    <tr>
+      <td>&nbsp;</td>
+      <td colspan='2'>Filter Min. Values:</td>
+      <td>
+        <input type='text' id='minVolume' placeholder='Min. Volume' />
+      </td>
+      <td>
+        <input type='text' id='minMarketCap' placeholder='Min. Market Cap.' />
+      </td>
+      <td>
+        <input type='text' id='minRoi' placeholder='Min. RoI' />
+      </td>
+      <td>
+        <input type='text' id='minMasternodes' placeholder='Min. # MNs' />
+      </td>
+      <td>&nbsp;</td>
+      <td>
+        <input type='text' id='minMasternodeValue' placeholder='Min. MN value' />
+      </td>
+    </tr>
+  </tfoot>
 </table>

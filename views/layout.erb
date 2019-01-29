@@ -9,9 +9,53 @@
     <%= yield %>
 
     <script>
+      function toFloat(str) {
+        if (str === '?') {
+          return 0;
+        } else {
+          return parseFloat(str.replace(/[^0-9\.\-]/g, ''));
+        }
+      }
+
+      function valueExceedsLimit(dataIndex, $limitElement, data) {
+        var value = toFloat(data[dataIndex]);
+        var limit = toFloat($limitElement.val());
+
+        if (isNaN(limit) || isNaN(value)) {
+          return true;
+        } else {
+          return (value >= limit);
+        }
+      }
+
+      $.fn.dataTable.ext.search.push(function(settings, data, dataIndex) {
+        return valueExceedsLimit(3, $('#minVolume'), data);
+      });
+
+      $.fn.dataTable.ext.search.push(function(settings, data, dataIndex) {
+        return valueExceedsLimit(4, $('#minMarketCap'), data);
+      });
+
+      $.fn.dataTable.ext.search.push(function(settings, data, dataIndex) {
+        return valueExceedsLimit(5, $('#minRoi'), data);
+      });
+
+      $.fn.dataTable.ext.search.push(function(settings, data, dataIndex) {
+        return valueExceedsLimit(6, $('#minMasternodes'), data);
+      });
+
+      $.fn.dataTable.ext.search.push(function(settings, data, dataIndex) {
+        return valueExceedsLimit(8, $('#minMasternodeValue'), data);
+      });
+
       $(document).ready(function() {
-        $('#dataTable').dataTable()
-      })
+        var table = $('#dataTable').DataTable();
+
+        $('#minVolume, #minMarketCap, #minRoi, #minMasternodes, #minMasternodeValue').keyup(function() {
+          table.draw();
+        });
+
+      });
     </script>
   </body>
 </html>
