@@ -3,13 +3,33 @@
 require 'bundler/setup'
 require 'sinatra/base'
 require 'json'
+require 'pg'
+
+TABLE = 'coindata'
+ROW_KEY = 1  # We only ever store/update this row
+
+def fetch_json
+  conn = PG.connect(ENV.fetch('DATABASE_URL'))
+  result = conn.exec "SELECT json, updated_at FROM #{TABLE} WHERE id = #{ROW_KEY}"
+  data, updated_at = result.values.first
+
+  {
+    json: conn.unescape_bytea(data),
+    age: age_in_seconds(updated_at)
+  }
+end
+
+def age_in_seconds(time_string)
+  Time.now.to_i - Time.parse(time_string).to_i
+end
 
 class App < Sinatra::Base
   set :port, ENV.fetch('PORT')
   set :bind, '0.0.0.0'
 
   get '/' do
-    @data = JSON.parse(File.read('mno.json'))
+    result = fetch_json
+    @data = JSON.parse(result.fetch(:json))
     erb :index
   end
 
