@@ -7,6 +7,7 @@ require 'pg'
 
 TABLE = 'coindata'
 ROW_KEY = 1  # We only ever store/update this row
+MAX_AGE_SECONDS = 600
 
 def fetch_json
   conn = PG.connect(ENV.fetch('DATABASE_URL'))
@@ -15,7 +16,8 @@ def fetch_json
 
   {
     json: conn.unescape_bytea(data),
-    age: age_in_seconds(updated_at)
+    age: age_in_seconds(updated_at),
+    updated_at: updated_at
   }
 end
 
@@ -29,7 +31,13 @@ class App < Sinatra::Base
 
   get '/' do
     result = fetch_json
+
+    if result.fetch(:age) > MAX_AGE_SECONDS
+      system 'bin/update.rb &'
+    end
+
     @data = JSON.parse(result.fetch(:json))
+    @updated_at = result.fetch(:updated_at)
     erb :index
   end
 
