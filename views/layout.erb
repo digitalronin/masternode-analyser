@@ -1,0 +1,17 @@
+<html>
+  <head>
+    <link rel='stylesheet' href='//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css' type='text/css' media='screen' />
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script src='//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js'></script>
+  </head>
+  <body>
+    <%= yield %>
+
+    <script>
+      $(document).ready(function() {
+        $('#dataTable').dataTable()
+      })
+    </script>
+  </body>
+</html>
