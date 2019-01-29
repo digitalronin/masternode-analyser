@@ -38,6 +38,7 @@ class App < Sinatra::Base
 
     @data = JSON.parse(result.fetch(:json))
     @updated_at = result.fetch(:updated_at)
+    @title = 'Masternode Coins'
     erb :index
   end
 
