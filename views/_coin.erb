@@ -1,5 +1,9 @@
 <tr>
-  <td><%= "#{coin['name']} (#{coin['symbol']})" %></td>
+  <td>
+    <a href="https://masternodes.online/currencies/<%= coin['symbol'] %>" target="_blank">
+      <%= "#{coin['name']} (#{coin['symbol']})" %>
+    </a>
+  </td>
   <td><%= coin['price_dollars'] %></td>
   <td><%= coin['change_percent'] %></td>
   <td><%= coin['volume_dollars'] %></td>
