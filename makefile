@@ -1,7 +1,7 @@
 APP := masternode-analyser
 
-run:
-	PORT=5000 ruby app.rb
+server:
+	. .env; ruby app.rb
 
 setup-heroku:
 	heroku create $(APP)
